@@ -42,8 +42,8 @@ global $db;
 
             <?php
 
-$sql = "SELECT * FROM crew 
-ORDER BY people_id ASC;";
+$sql = "SELECT * FROM people 
+ORDER BY people_id ASC";
 
 $result = $db->query($sql);
 
@@ -55,7 +55,7 @@ $result = $db->query($sql);
                               <td>'.$row["first_name"].'</b></td>
                               <td>'.$row["last_name"].'</b></td>
                               <td>'.$row["gender"].'</td>
-                              <td><img src = "images/'.$row["picture"].'" width="280" height="200 "></td>
+                              <td>img src="data:image/jpeg;base64,'.base64_encode(file_get_contents(.$row['image_name'].)).'"</td>
                               <td><a href="people_info.php?people_id='.$row['people_id'].'" button type="submit" name="submit" class="btn btn-warning btn-sm"; ?>View</td>
                           </tr>';
                   }//end while

@@ -32,14 +32,6 @@ global $db;
                       <th>Movie Name (Original)</th>
                       <th>Movie Name (English)</th>
                       <th>Movie Year</th>
-                      <th>Language</th>
-                      <th>Country</th>
-                      <th>Plot</th>
-                      <th>Genre</th>
-                      <th>Trivia</th>
-                      <th>Keywords</th>
-                      <th>Movie Posters</th>
-                      <th>Photo Stills</th>
                       <th>Delete</th>
 
               </tr>
@@ -51,25 +43,14 @@ global $db;
                       <th>Movie Name (Original)</th>
                       <th>Movie Name (English)</th>
                       <th>Movie Year</th>
-                      <th>Language</th>
-                      <th>Country</th>
-                      <th>Plot</th>
-                      <th>Genre</th>
-                      <th>Trivia</th>
-                      <th>Keywords</th>
-                      <th>Movie Posters</th>
-                      <th>Photo Stills</th>
                       <th>Delete</th>
               </tr>
             </tfoot>
         <tbody>
 <?php
 
-$sql = "SELECT movies.movie_id, movies.movie_name_native, movies.movie_name_english, movies.movie_year, metadata.language, metadata.country, metadata.plot, metadata.genre, movie_keywords.keyword, movie_trivia.trivia, multimedia.movie_poster, multimedia.photo_stills FROM movies 
-LEFT JOIN metadata ON movies.movie_id = metadata.movie_id
-LEFT JOIN movie_trivia ON movies.movie_id = movie_trivia.movie_id
-LEFT JOIN movie_keywords ON movies.movie_id = movie_keywords.movie_id
-LEFT JOIN multimedia ON movies.movie_id = multimedia.movie_media_id ORDER BY movies.movie_id ASC";
+$sql = "SELECT * FROM movies";
+$image = "SELECT * FROM movies LEFT JOIN movie_media ON movies.movie_id = movie_media.movie_id WHERE movie_media.m_link_type = 'poster'";
 
 $result = $db->query($sql);
 
@@ -77,17 +58,9 @@ $result = $db->query($sql);
                   while($row = $result->fetch_assoc()) {
                       echo '<tr> 
                               <td><a href="movies_info.php?movie_id='.$row['movie_id'].'" ?><b>'.$row["movie_id"].'</b></td>
-                              <td><a href="movies_info.php?movie_id='.$row['movie_id'].'" ?><b>'.$row["movie_name_native"].'</b></td>
-                              <td>'.$row["movie_name_english"].'</td>
-                              <td>'.$row["movie_year"].'</td>
-                              <td>'.$row["language"].'</td>
-                              <td>'.$row["country"].' </span> </td>
-                              <td>'.$row["plot"].'</td>
-                              <td>'.$row["genre"].'</td>
-                              <td>'.$row["trivia"].'</td>
-                              <td>'.$row["keyword"].'</td>
-                              <td><img src = "images/'.$row["movie_poster"].'" width="200" height="200 "></td>
-                              <td><img src = "images/'.$row["photo_stills"].'" width="200" height="200" > </td>
+                              <td><a href="movies_info.php?movie_id='.$row['movie_id'].'" ?><b>'.$row["native_name"].'</b></td>
+                              <td>'.$row["english_name"].'</td>
+                              <td>'.$row["year_made"].'</td>
                               <td><a href="delete.php?delete='.$row['movie_id'].'" class = "btn btn-danger"; ?>Delete</td>
                           </tr>';
 
