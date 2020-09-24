@@ -8,7 +8,7 @@
   global $db;
 
 
-  $sql = "SELECT * FROM (((movies LEFT JOIN metadata ON movies.movie_id = metadata.movie_id) LEFT JOIN movie_trivia ON movies.movie_id = movie_trivia.movie_id) LEFT JOIN movie_keywords ON movies.movie_id = movie_keywords.movie_id) LEFT JOIN multimedia ON movies.movie_id = movie_media_id 
+  $sql = "SELECT * FROM movies  
   GROUP BY movies.movie_id
   ORDER BY movies.movie_id ASC";
 
@@ -37,8 +37,8 @@
 				<div class="col s12 l6">
 					<div class="card">
 						<div class="card-content">
-							<p><?php echo $movie['movie_name_english']; ?></p>
-							<p><?php echo $movie['movie_year']; ?></p>
+							<p><?php echo $movie['english_name']; ?></p>
+							<p><?php echo $movie['year_made']; ?></p>
 						<div class="card-action right-align">
 							<a class="brand-text" href="movies_info.php?movie_id=<?php echo $movie['movie_id'] ?>">MORE DETAILS</a>
 						</div>
